@@ -1,31 +1,30 @@
-# networkwalks-BO82-week4-Cybersecurity-lab-setup
 # 🔐 Mediroza General Hospital — Penetration Testing Project
 
 **Networkwalks Cybersecurity Training — Batch B082 | Week 4**
 
-> **Project Type:** Authorized Web Application Penetration Testing Lab
-> **Target:** `https://medirozahospital.com`
-> **Focus Areas:** Reconnaissance, Web Authentication Testing, SQL Injection, Password Cracking, PDF Decryption, Metadata Analysis, Sensitive File Discovery
+> **Project Type:** Authorized Web Application Penetration Testing Lab  
+> **Target:** `https://medirozahospital.com`  
+> **Focus Areas:** Reconnaissance, Web Authentication Testing, SQL Injection, Password Cracking, PDF Decryption, Metadata Analysis, Sensitive File Discovery  
 > **Status:** Completed
 
 ---
 
 ## 📌 Table of Contents
 
-* [1. Project Overview](#1-project-overview)
-* [2. Objectives](#2-objectives)
-* [3. Scope and Authorization](#3-scope-and-authorization)
-* [4. Tools Used](#4-tools-used)
-* [5. Methodology](#5-methodology)
-* [6. Milestone 1 — Initial Access](#6-milestone-1--initial-access)
-* [7. Milestone 2 — Crack the Encryption](#7-milestone-2--crack-the-encryption)
-* [8. Milestone 3 — Deep Reconnaissance](#8-milestone-3--deep-reconnaissance)
-* [9. Key Findings](#9-key-findings)
-* [10. Security Impact](#10-security-impact)
-* [11. Recommendations](#11-recommendations)
-* [12. Evidence](#12-evidence)
-* [13. Lessons Learned](#13-lessons-learned)
-* [14. Conclusion](#14-conclusion)
+- [1. Project Overview](#1-project-overview)
+- [2. Objectives](#2-objectives)
+- [3. Scope and Authorization](#3-scope-and-authorization)
+- [4. Tools Used](#4-tools-used)
+- [5. Methodology](#5-methodology)
+- [6. Milestone 1 — Initial Access](#6-milestone-1--initial-access)
+- [7. Milestone 2 — Crack the Encryption](#7-milestone-2--crack-the-encryption)
+- [8. Milestone 3 — Deep Reconnaissance](#8-milestone-3--deep-reconnaissance)
+- [9. Key Findings](#9-key-findings)
+- [10. Security Impact](#10-security-impact)
+- [11. Recommendations](#11-recommendations)
+- [12. Evidence](#12-evidence)
+- [13. Lessons Learned](#13-lessons-learned)
+- [14. Conclusion](#14-conclusion)
 
 ---
 
@@ -33,11 +32,13 @@
 
 This project was completed as part of the **Networkwalks Cybersecurity Training Program, Batch B082 — Week 4**.
 
-The assessment simulated a web application penetration test against **Mediroza General Hospital**. The objective was to identify security weaknesses across the application's authentication mechanism, encrypted documents, web server configuration, and exposed database backup.
+The assessment simulated a web application penetration test against **Mediroza General Hospital** within an authorized training environment.
 
-The assessment followed a progressive attack path in which information discovered during reconnaissance was used to support subsequent stages of the investigation.
+The objective was to identify security weaknesses across the application's authentication mechanism, protected documents, web server configuration, and exposed database backup.
 
-The assessment demonstrated how multiple individually significant weaknesses can be chained together to increase the overall security impact of a compromised application.
+The assessment followed a progressive attack path where information discovered during reconnaissance was used to support later stages of the investigation.
+
+This exercise demonstrated how multiple vulnerabilities can be chained together to increase the overall security impact of a compromised application.
 
 ---
 
@@ -45,21 +46,21 @@ The assessment demonstrated how multiple individually significant weaknesses can
 
 The primary objectives of this assessment were to:
 
-* Perform reconnaissance against the target web application.
-* Identify hidden directories using `robots.txt`.
-* Test the application's authentication mechanism.
-* Identify username enumeration vulnerabilities.
-* Test for SQL injection.
-* Demonstrate an authentication bypass.
-* Obtain protected PDF reports through the authorized training portal.
-* Extract PDF password hashes.
-* Crack password-protected PDF files using wordlists.
-* Decrypt a protected PDF while preserving the original file.
-* Analyze PDF metadata.
-* Correlate metadata findings with previously discovered reconnaissance information.
-* Identify exposed directories and backup files.
-* Extract structured information from an exposed SQL database backup.
-* Document security findings and recommend remediation measures.
+- Perform reconnaissance against the target web application.
+- Identify hidden directories using `robots.txt`.
+- Test the application's authentication mechanism.
+- Identify username enumeration vulnerabilities.
+- Test for SQL injection.
+- Demonstrate an authentication bypass in the authorized lab.
+- Obtain protected PDF reports through the training portal.
+- Extract PDF password hashes.
+- Recover weak PDF passwords using wordlists.
+- Decrypt a protected PDF while preserving the original file.
+- Analyze PDF metadata.
+- Correlate metadata findings with reconnaissance information.
+- Identify exposed directories and backup files.
+- Extract structured information from an exposed SQL database backup.
+- Document security findings and recommend remediation measures.
 
 ---
 
@@ -67,7 +68,7 @@ The primary objectives of this assessment were to:
 
 This assessment was performed strictly within the scope of the assigned **Networkwalks cybersecurity training laboratory**.
 
-**Target:**
+### Target
 
 ```text
 https://medirozahospital.com
@@ -83,19 +84,19 @@ No unauthorized third-party systems were intentionally targeted.
 
 # 4. Tools Used
 
-| Tool                          | Purpose                                                 |
-| ----------------------------- | ------------------------------------------------------- |
-| `curl`                        | Web reconnaissance and HTTP requests                    |
-| Web Browser                   | Application navigation and authentication testing       |
-| Networkwalks Hash Calculator  | PDF hash extraction                                     |
-| Networkwalks Password Cracker | Password recovery using wordlists                       |
-| JTR Wordlist                  | Extended password dictionary                            |
-| `qpdf`                        | PDF decryption and creation of an unlocked working copy |
-| `ExifTool`                    | PDF metadata analysis                                   |
-| `wget`                        | Downloading the exposed SQL backup                      |
-| `grep`                        | Searching SQL data                                      |
-| `sed`                         | Extracting relevant SQL statements                      |
-| Kali Linux                    | Security testing environment                            |
+| Tool | Purpose |
+|---|---|
+| `curl` | Web reconnaissance and HTTP requests |
+| Web Browser | Application navigation and authentication testing |
+| Networkwalks Hash Calculator | PDF hash extraction |
+| Networkwalks Password Cracker | Password recovery using wordlists |
+| JTR Wordlist | Extended password dictionary |
+| `qpdf` | PDF decryption and creation of an unlocked working copy |
+| `ExifTool` | PDF metadata analysis |
+| `wget` | Downloading the exposed SQL backup |
+| `grep` | Searching SQL data |
+| `sed` | Extracting relevant SQL statements |
+| Kali Linux | Security testing environment |
 
 ---
 
@@ -155,15 +156,11 @@ Disallow: /old/
 
 The `/patient/` directory was selected as the target for the initial-access portion of the assessment.
 
-The `/old/` directory was also significant because it became relevant during the later reconnaissance stage.
+The `/old/` directory also became relevant during the later reconnaissance stage.
 
 ### Evidence
 
-**Suggested screenshot filename:**
-
-```text
-01_robots_txt_recon.png
-```
+![robots.txt reconnaissance](01_robots_txt_recon.png)
 
 ---
 
@@ -179,9 +176,7 @@ The login page was identified as a potential entry point for authentication test
 
 ### Evidence
 
-```text
-02_patient_login_page.png
-```
+![Patient login page](02_patient_login_page.png)
 
 ---
 
@@ -217,17 +212,15 @@ Incorrect password
 
 The application generated different responses depending on whether the username existed.
 
-This behavior confirmed **username enumeration**.
+This confirmed a **username enumeration vulnerability**.
 
-### Security Issue
+### Security Impact
 
-A malicious user could potentially use the different responses to determine valid usernames before attempting further attacks.
+An attacker could potentially use the different responses to identify valid usernames before attempting further attacks.
 
 ### Evidence
 
-```text
-03_username_enumeration.png
-```
+![Username enumeration](03_username_enumeration.png)
 
 ---
 
@@ -249,15 +242,13 @@ This demonstrated that user input was being incorporated into a database query w
 
 ### Evidence
 
-```text
-04_sql_injection_error.png
-```
+![SQL injection error](04_sql_injection_error.png)
 
 ---
 
 ## 6.5 Authentication Bypass
 
-A SQL injection payload was tested in the authorized lab environment:
+A SQL injection payload was tested within the authorized training environment:
 
 ```text
 admin' --
@@ -273,15 +264,13 @@ An attacker could potentially access functionality intended for authenticated us
 
 ### Evidence
 
-```text
-05_authentication_bypass.png
-```
+![Authentication bypass](05_authentication_bypass.png)
 
 ---
 
 ## 6.6 Downloading the Reports
 
-After accessing the portal, three PDF reports were available:
+After accessing the authorized training portal, three protected PDF reports were available.
 
 ```text
 patient_report_1.pdf
@@ -289,14 +278,11 @@ patient_report_2.pdf
 patient_report_3.pdf
 ```
 
-All three reports were downloaded for the next stage of the assessment.
+The reports were downloaded for the next stage of the assessment.
 
 ### Evidence
 
-```text
-06_reports_portal.png
-07_downloaded_reports.png
-```
+![Downloaded reports](07_downloaded_reports.png)
 
 ---
 
@@ -318,11 +304,11 @@ Each report was processed individually.
 
 ### Evidence
 
-```text
-08_report1_pdf_hash.png
-09_report2_pdf_hash.png
-10_report3_pdf_hash.png
-```
+![Report 1 PDF hash](08_report1_pdf_hash.png)
+
+![Report 2 PDF hash](09_report2_pdf_hash.png)
+
+![Report 3 PDF hash](10_report3_pdf_hash.png)
 
 ---
 
@@ -330,17 +316,13 @@ Each report was processed individually.
 
 The extracted hash for `patient_report_1.pdf` was submitted to the Networkwalks Password Cracker using the built-in wordlist.
 
-Result:
+The password was successfully recovered.
 
-```text
-patient_report_1.pdf → 123456
-```
+> The recovered password is intentionally not published in this README.
 
 ### Evidence
 
-```text
-11_report1_password_cracked.png
-```
+![Report 1 password recovery](11_report1_password_cracked.png)
 
 ---
 
@@ -348,17 +330,13 @@ patient_report_1.pdf → 123456
 
 The extracted hash for `patient_report_2.pdf` was tested using the built-in wordlist.
 
-Result:
+The password was successfully recovered.
 
-```text
-patient_report_2.pdf → password
-```
+> The recovered password is intentionally not published in this README.
 
 ### Evidence
 
-```text
-12_report2_password_cracked.png
-```
+![Report 2 password recovery](12_report2_password_cracked.png)
 
 ---
 
@@ -374,26 +352,15 @@ No match.
 ACCESS DENIED.
 ```
 
-This demonstrated that the password was not contained in the smaller dictionary.
-
 A larger JTR wordlist supplied for the training exercise was then used.
 
-Result:
+The password was successfully recovered.
 
-```text
-patient_report_3.pdf → !@#$%^&
-```
-
-### Lesson
-
-When a limited wordlist fails, a larger and more comprehensive wordlist may contain the required password.
+> The recovered password is intentionally not published in this public repository.
 
 ### Evidence
 
-```text
-13_report3_builtin_wordlist_failed.png
-14_report3_jtr_password_cracked.png
-```
+![Report 3 built-in wordlist failure](13_report3_builtin_wordlist_failed.png)
 
 ---
 
@@ -404,7 +371,7 @@ The recovered password was used with `qpdf` to create an unlocked working copy.
 Command:
 
 ```bash
-qpdf --password='!@#$%^&' --decrypt \
+qpdf --password='<RECOVERED_PASSWORD>' --decrypt \
 ~/Downloads/patient_report_3.pdf \
 ~/Downloads/report3_open.pdf
 ```
@@ -419,14 +386,13 @@ patient_report_3.pdf
 report3_open.pdf
 ```
 
-This unlocked copy was required for subsequent metadata analysis.
+This unlocked copy was then used for metadata analysis.
 
 ### Evidence
 
-```text
-15_qpdf_decryption.png
-16_report3_open_verified.png
-```
+![QPDF PDF decryption](15_qpdf_decryption.png)
+
+![Decrypted PDF verification](16_report3_open_verified.png)
 
 ---
 
@@ -446,26 +412,24 @@ ExifTool was used to inspect metadata fields associated with the document.
 
 Metadata analysis can reveal information such as:
 
-* File properties
-* PDF version
-* Creation information
-* Modification information
-* Creator software
-* Producer software
-* Page count
-* Other document properties
+- File properties
+- PDF version
+- Creation information
+- Modification information
+- Creator software
+- Producer software
+- Page count
+- Other document properties
 
 The metadata investigation provided a clue associated with the `/old/` directory.
 
 ### Evidence
 
-```text
-17_exiftool_report3_metadata.png
-```
+![ExifTool PDF metadata analysis](17_exiftool_report3_metadata.png)
 
 ---
 
-## 8.2 Confirming `/old/` Using robots.txt
+## 8.2 Correlating the `/old/` Finding
 
 The `/old/` directory had already been identified during the initial reconnaissance phase.
 
@@ -481,9 +445,7 @@ This demonstrates the importance of maintaining and correlating reconnaissance f
 
 ### Evidence
 
-```text
-01_robots_txt_recon.png
-```
+![robots.txt reconnaissance](01_robots_txt_recon.png)
 
 ---
 
@@ -521,9 +483,7 @@ This configuration allowed users to enumerate files stored in the directory.
 
 ### Evidence
 
-```text
-19_old_directory_listing.png
-```
+![Exposed old directory listing](19_old_directory_listing.png)
 
 ---
 
@@ -543,9 +503,7 @@ mediroza_db_backup_2019.sql
 
 ### Evidence
 
-```text
-20_sql_backup_download.png
-```
+![SQL database backup download](20_sql_backup_download.png)
 
 ---
 
@@ -561,20 +519,19 @@ sed -n '/INSERT INTO `staff`/,/;/p' mediroza_db_backup_2019.sql
 
 The table contained employee information including:
 
-* Full name
-* Job title
-* Department
-* Monthly salary
-* Other employee-related fields
+- Full name
+- Job title
+- Department
+- Monthly salary
+- Other employee-related fields
 
-For reporting purposes, the relevant fields were organized into a structured table.
+The relevant information was organized into a structured format for analysis.
+
+> **Privacy note:** Sensitive fields such as email addresses, phone numbers, national identification numbers, and other personal information should not be published in a public portfolio repository.
 
 ### Evidence
 
-```text
-21_staff_sql_records.png
-22_staff_data_table.png
-```
+![Staff SQL records](21_staff_sql_records.png)
 
 ---
 
@@ -590,18 +547,17 @@ sed -n '/INSERT INTO `shareholders`/,/;/p' mediroza_db_backup_2019.sql
 
 The relevant fields included:
 
-* Shareholder name
-* Share percentage
-* Share class
+- Shareholder name
+- Share percentage
+- Share class
 
 The information was converted from raw SQL syntax into a human-readable structure for analysis.
 
+> **Privacy note:** Any screenshot containing sensitive personal or organizational information should be appropriately redacted before being published publicly.
+
 ### Evidence
 
-```text
-23_shareholders_sql_records.png
-24_shareholders_data_table.png
-```
+![Shareholder SQL records](23_shareholders_sql_records.png)
 
 ---
 
@@ -609,16 +565,16 @@ The information was converted from raw SQL syntax into a human-readable structur
 
 The assessment identified several security weaknesses.
 
-| ID   | Finding                                                 | Severity |
-| ---- | ------------------------------------------------------- | -------- |
-| F-01 | Username enumeration                                    | Medium   |
-| F-02 | SQL injection in authentication                         | Critical |
-| F-03 | Authentication bypass                                   | Critical |
-| F-04 | Weak PDF passwords                                      | High     |
-| F-05 | Sensitive information exposed through document metadata | Medium   |
-| F-06 | Directory listing enabled                               | High     |
-| F-07 | Database backup publicly accessible                     | Critical |
-| F-08 | Sensitive employee/shareholder information exposed      | Critical |
+| ID | Finding | Severity |
+|---|---|---|
+| F-01 | Username enumeration | Medium |
+| F-02 | SQL injection in authentication | Critical |
+| F-03 | Authentication bypass | Critical |
+| F-04 | Weak PDF passwords | High |
+| F-05 | Sensitive information exposed through document metadata | Medium |
+| F-06 | Directory listing enabled | High |
+| F-07 | Database backup publicly accessible | Critical |
+| F-08 | Sensitive employee/shareholder information exposed | Critical |
 
 > **Severity ratings are based on the potential security impact demonstrated within the training environment and should be validated against the organization's actual risk model.**
 
@@ -630,7 +586,7 @@ The vulnerabilities identified during the assessment demonstrate how several wea
 
 The most significant risk was the publicly accessible database backup.
 
-An exposed database backup can potentially reveal sensitive organizational information without requiring direct access to the application's database server.
+An exposed database backup can potentially reveal sensitive organizational information without requiring direct access to the application's live database server.
 
 The combination of:
 
@@ -650,13 +606,13 @@ creates a significantly larger attack surface than any single vulnerability cons
 
 Potential impacts include:
 
-* Unauthorized access to application functionality
-* Exposure of confidential documents
-* Disclosure of employee information
-* Disclosure of organizational ownership information
-* Exposure of salary information
-* Increased risk of targeted phishing or social engineering
-* Potential compromise of additional systems if exposed credentials or secrets exist in backups
+- Unauthorized access to application functionality
+- Exposure of confidential documents
+- Disclosure of employee information
+- Disclosure of organizational ownership information
+- Exposure of salary information
+- Increased risk of targeted phishing or social engineering
+- Potential compromise of additional systems if exposed credentials or secrets exist in backups
 
 ---
 
@@ -698,11 +654,11 @@ Authentication logic should be redesigned to prevent SQL injection-based authent
 
 Additional protections should include:
 
-* Secure password hashing
-* Multi-factor authentication where appropriate
-* Rate limiting
-* Account lockout or progressive delays
-* Secure session management
+- Secure password hashing
+- Multi-factor authentication where appropriate
+- Rate limiting
+- Account lockout or progressive delays
+- Secure session management
 
 ---
 
@@ -720,11 +676,11 @@ should be removed from the web root immediately.
 
 Backups should instead be stored in protected storage with appropriate:
 
-* Access controls
-* Encryption
-* Authentication
-* Backup retention policies
-* Monitoring
+- Access controls
+- Encryption
+- Authentication
+- Backup retention policies
+- Monitoring
 
 ---
 
@@ -740,14 +696,14 @@ The `/old/` directory should either be removed or protected with appropriate acc
 
 All old and archived files should be reviewed for:
 
-* Database dumps
-* Credentials
-* API keys
-* Configuration files
-* Personal information
-* Internal documents
-* Source code
-* Logs
+- Database dumps
+- Credentials
+- API keys
+- Configuration files
+- Personal information
+- Internal documents
+- Source code
+- Logs
 
 Sensitive files should not remain accessible from the public web.
 
@@ -771,42 +727,33 @@ A controlled document sanitization process should be implemented where appropria
 
 # 12. Evidence
 
-The following screenshots should be included in the repository as evidence of the assessment activities.
+The repository contains screenshots documenting the major stages of the assessment.
 
-| Screenshot                                 | Description                        |
-| ------------------------------------------ | ---------------------------------- |
-| `01_robots_txt_recon.png`                  | robots.txt reconnaissance          |
-| `02_patient_login_page.png`                | Patient login page                 |
-| `03_username_enumeration.png`              | Username enumeration               |
-| `04_sql_injection_error.png`               | SQL injection error                |
-| `05_authentication_bypass.png`             | Authentication bypass              |
-| `06_reports_portal.png`                    | Reports portal                     |
-| `07_downloaded_reports.png`                | Downloaded PDF reports             |
-| `08_report1_pdf_hash.png`                  | Report 1 hash                      |
-| `09_report2_pdf_hash.png`                  | Report 2 hash                      |
-| `10_report3_pdf_hash.png`                  | Report 3 hash                      |
-| `11_report1_password_cracked.png`          | Report 1 password recovery         |
-| `12_report2_password_cracked.png`          | Report 2 password recovery         |
-| `13_report3_builtin_wordlist_failed.png`   | Report 3 failed wordlist attempt   |
-| `14_report3_jtr_password_cracked.png`      | Report 3 JTR password recovery     |
-| `15_qpdf_decryption.png`                   | qpdf decryption                    |
-| `16_report3_open_verified.png`             | Verification of unlocked PDF       |
-| `17_exiftool_report3_metadata.png`         | PDF metadata analysis              |
-| `18_robots_old_directory_confirmation.png` | `/old/` confirmation               |
-| `19_old_directory_listing.png`             | Exposed directory listing          |
-| `20_sql_backup_download.png`               | SQL backup download                |
-| `21_staff_sql_records.png`                 | Staff SQL records                  |
-| `22_staff_data_table.png`                  | Structured staff information       |
-| `23_shareholders_sql_records.png`          | Shareholder SQL records            |
-| `24_shareholders_data_table.png`           | Structured shareholder information |
-
-> **Screenshot naming convention:** Use lowercase filenames with underscores to keep evidence organized and consistent.
+| Screenshot | Description |
+|---|---|
+| `01_robots_txt_recon.png` | robots.txt reconnaissance |
+| `02_patient_login_page.png` | Patient login page |
+| `03_username_enumeration.png` | Username enumeration |
+| `04_sql_injection_error.png` | SQL injection error |
+| `05_authentication_bypass.png` | Authentication bypass |
+| `07_downloaded_reports.png` | Downloaded PDF reports |
+| `08_report1_pdf_hash.png` | Report 1 hash extraction |
+| `09_report2_pdf_hash.png` | Report 2 hash extraction |
+| `10_report3_pdf_hash.png` | Report 3 hash extraction |
+| `11_report1_password_cracked.png` | Report 1 password recovery |
+| `12_report2_password_cracked.png` | Report 2 password recovery |
+| `13_report3_builtin_wordlist_failed.png` | Report 3 failed wordlist attempt |
+| `15_qpdf_decryption.png` | QPDF decryption |
+| `16_report3_open_verified.png` | Verification of unlocked PDF |
+| `17_exiftool_report3_metadata.png` | PDF metadata analysis |
+| `19_old_directory_listing.png` | Exposed directory listing |
+| `20_sql_backup_download.png` | SQL backup download |
+| `21_staff_sql_records.png` | Staff SQL records |
+| `23_shareholders_sql_records.png` | Shareholder SQL records |
 
 ---
 
 # 13. Lessons Learned
-
-This project provided practical experience with several important penetration-testing concepts.
 
 ### Reconnaissance
 
@@ -868,13 +815,14 @@ Security Reporting
 
 ## 📚 Project Information
 
-**Program:** Networkwalks Cybersecurity Training
-**Batch:** B082
-**Week:** 4
-**Project:** Mediroza General Hospital Penetration Testing
-**Assessment Type:** Authorized Training Laboratory
-**Environment:** Kali Linux
+**Program:** Networkwalks Cybersecurity Training  
+**Batch:** B082  
+**Week:** 4  
+**Project:** Mediroza General Hospital Penetration Testing  
+**Assessment Type:** Authorized Training Laboratory  
+**Environment:** Kali Linux  
 **Author:** Anaaba Maxwell Apuswini
+
 ---
 
-> **Confidentiality Notice:** This documentation was prepared for authorized cybersecurity training purposes. Techniques demonstrated in this project must only be used against systems where explicit permission to test has been granted.
+> **Security & Privacy Notice:** Screenshots and extracted data from the training environment should be reviewed and redacted before public distribution. Credentials, passwords, personal identifiers, contact information, and other sensitive information should not be published.
